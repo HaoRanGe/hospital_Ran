@@ -68,15 +68,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    </div>
 	  </div>
 	  <div class="form-group">
-	      <label for="name" class="col-sm-2 control-label" >预约科室</label>
-	      <div class="col-sm-8">
-		      <select class="form-control" name="department">
-				<option value="中医特诊">中医特诊</option>
-				<option value="骨伤科特诊">骨伤科特诊</option>
-			  </select>
+	      <label for="name" class="col-sm-2 control-label" >预约科室、医生</label>
+	      <div class="col-sm-4">
+		      <select id="departments_select" class="form-control input-lg">
+					<option value='1'>1</option>
+					<option value='2'>2</option>
+					<option value='3'>3</option>
+				</select>
+			
+		  </div>
+		  <div class="col-sm-4">
+		  		<select id="doctors_select" class="form-control input-lg">
+				</select>
 		  </div>
 		  <label class="col-sm-2">
-			  	<input type="button" value="查询医生" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+			  	<input id="doctor_search" type="button" value="查询医生" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
 		  </label>	
 	   </div>
 	   <div class="form-group">
@@ -87,67 +93,79 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</form>
 
 
-
 	<!-- 弹出框 -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	   <div class="modal-dialog">
-	      <div class="modal-content">
-	         <div class="modal-header">
-	            <button type="button" class="close" 
-	               data-dismiss="modal" aria-hidden="true">
-	                  &times;
-	            </button>
-	            <h4 class="modal-title" id="myModalLabel">
-	               坐诊医生
-	            </h4>
-	         </div>
-	         <div class="modal-body">
-		        <table class="table table-bordered table-hover">
-		        <tbody>	
-					<tr>
-						<th>科室专家</th>
-						<th>周日</th>
-						<th>周一</th>
-						<th>周二</th>
-						<th>周三</th>
-						<th>周四</th>
-						<th>周五</th>
-						<th>周六</th>
-					</tr>
-					<tr>
-						<td>小明</td>
-						<td></td>
-						<td></td>
-						<td><a href="#">上午</a></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td>下午</td>
-					</tr>
-					<tr>
-						<td>小红</td>
-						<td></td>
-						<td>下午</td>
-						<td>上午</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-				</tbody>
-				</table>
-	         </div>
-	         <div class="modal-footer">
-	            <button type="button" class="btn btn-default" 
-	               data-dismiss="modal">关闭
-	            </button>
-	            <button type="button" class="btn btn-primary">
-	               提交更改
-	            </button>
-	         </div>
-	      </div><!-- /.modal-content -->
-		</div><!-- /.modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">标题</h4>
+	      </div>
+	      <div id="modal_table" class="modal-body">
+	        ...
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	        <button type="button" class="btn btn-primary">提交</button>
+	      </div>
+	    </div>
+	  </div>
 	</div>
+	
+	<script>
+		/*选择功能*/
+				var departments_temp='';
+				var departments_select_val='';
+				var doctors_temp='';
+				var doctors_select_val='';
+				$("#departments_select").click(function(){
+					departments_select_val=$("#departments_select").val();
+					if (departments_select_val==1)
+					{
+						departments_temp='<option value="1">1</option>';
+					}
+					else if (departments_select_val==2)
+					{
+						departments_temp='<option value="2">2</option>';
+						departments_temp+='<option value="3">3</option>';
+					}
+					else if (departments_select_val==3)
+					{
+						departments_temp='<option value="3">3</option>';
+						departments_temp+='<option value="4">4</option>';
+						departments_temp+='<option value="5">5</option>';
+					}
+					$("#doctors_select").html(departments_temp);
+				});
+		
+				$("#doctor_search").click(function(){
+					doctors_select_val=$("#doctors_select").val();
+					if (doctors_select_val==1)
+					{
+						doctors_temp='<table class="table table-hover table-bordered"><tr>';
+						doctors_temp+='<th>1</th>';
+						doctors_temp+='</tr></table>';
+					}
+					else if (doctors_select_val==2)
+					{
+						doctors_temp='<table class="table table-hover table-bordered"><tr>';
+						doctors_temp+='<th>2</th><th>2</th>';
+						doctors_temp+='</tr></table>';
+					}
+					else if (doctors_select_val==3)
+					{
+						doctors_temp='<table class="table table-hover table-bordered"><tr>';
+						doctors_temp+='<th>3</th><th>3</th><th>3</th></tr>';
+						doctors_temp+='<tr><td>3.1</td><td>3.1</td><td>3.1</td>';
+						doctors_temp+='</tr></table>';
+					}
+					else
+					{
+						doctors_temp="...";
+					}
+					$("#modal_table").html(doctors_temp);	
+				});
+	</script>
 </div>	
   </body>
 </html>

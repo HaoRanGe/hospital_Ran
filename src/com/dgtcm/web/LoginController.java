@@ -12,6 +12,7 @@ public class LoginController {
 	
 	@Autowired
 	private UserService userService;
+	
 	@RequestMapping(value="/index.html")
 	public String loginPage(){
 		return "login";
